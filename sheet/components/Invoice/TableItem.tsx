@@ -51,7 +51,7 @@ export default function TableItem({
   onSelect: (id: number) => void;
   onDeleteOne: (id: number) => void;
 }) {
-  const [isShowBalance, setIsShowBalance] = useState(false);
+  const [isShowBalance, setIsShowBalance] = useState<boolean>(false);
   return (
     <tr className="flex w-full border-b border-x border-gray-200 hover:bg-gray-100 py-2">
       <ItemCell className="flex items-center justify-start pl-5 basis-[5%]">

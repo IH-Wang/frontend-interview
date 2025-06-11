@@ -5,7 +5,7 @@ import Menu from "./components/menu";
 import TodoList from "./components/todo-list";
 
 export default function Home() {
-  const [tab, settab] = useState<"menu" | "todo">("menu");
+  const [tab, setTab] = useState<"menu" | "todo">("menu");
 
   return (
     <div className="items-center justify-center flex w-screen h-screen text-black ">
@@ -13,13 +13,13 @@ export default function Home() {
         <div role="tablist" className="border-b border-neutral-700 mb-2 flex justify-between gap-4">
           <button
             className="flex-1 shadow-md bg-neutral-200 my-2 rounded"
-            onClick={() => settab("menu")}
+            onClick={() => setTab("menu")}
           >
             Menu
           </button>
           <button
             className="flex-1 shadow-md bg-neutral-200 my-2 rounded"
-            onClick={() => settab("todo")}
+            onClick={() => setTab("todo")}
           >
             Todo
           </button>

@@ -6,12 +6,12 @@ import { PAGE_SIZE } from "@/constants";
 
 export function useInvoice() {
   const [accountList, setAccountList] = useState<AccountData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [isSelectAll, setIsSelectAll] = useState(false);
-  const [search, setSearch] = useState("");
-  const [total, setTotal] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [isSelectAll, setIsSelectAll] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedList, setSelectedList] = useState<number[]>([]);
   const [removedList, setRemovedList] = useState<number[]>([]);
 

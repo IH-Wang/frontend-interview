@@ -2,7 +2,12 @@
 
 import { useState } from "react";
 
-const todo = [
+interface TodoProps {
+  id: number;
+  name: string;
+  isCompleted: boolean;
+}
+const todo: TodoProps[] = [
   {
     id: 1,
     name: "Buy milk",
@@ -21,11 +26,15 @@ const todo = [
 ];
 
 export default function TodoList() {
-  const [list, setList] = useState(todo);
+  const [list, setList] = useState<TodoProps[]>(todo);
 
   function handleClick(index: number) {
-    list[index].isCompleted = !list[index].isCompleted;
-    setList(list);
+    setList((prev) =>
+      prev.map((item, idx) => ({
+        ...item,
+        isCompleted: index === idx ? !item.isCompleted : item.isCompleted,
+      }))
+    );
   }
 
   return (

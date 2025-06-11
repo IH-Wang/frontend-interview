@@ -9,14 +9,13 @@ type List = {
 
 export default function Menu() {
   const [menuList, setMenuList] = useState<List[]>([]);
-
-  if (menuList === []) {
-    return null;
-  }
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setIsLoading(true);
     async function fetchData() {
       const data = await mockFetch();
+      setIsLoading(false);
       setMenuList(data);
     }
     fetchData();
@@ -24,11 +23,17 @@ export default function Menu() {
 
   return (
     <div className="px-4">
-      {menuList.map((item) => (
-        <ul key={item.id}>
-          <li className="list-disc">{item.name}</li>
-        </ul>
-      ))}
+      <ul className="flex flex-col gap-1">
+        {isLoading
+          ? Array.from({ length: 2 }).map((_, index) => (
+              <li key={index} className="list-disc animate-pulse bg-gray-200" />
+            ))
+          : menuList.map((item) => (
+              <li key={item.id} className="list-disc">
+                {item.name}
+              </li>
+            ))}
+      </ul>
     </div>
   );
 }

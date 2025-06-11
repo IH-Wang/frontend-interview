@@ -38,7 +38,7 @@ function onError(): Promise<never> {
   });
 }
 
-const mockData: AccountData[] = [
+export const mockData: AccountData[] = [
   {
     id: 1,
     name: "Alice Chen",

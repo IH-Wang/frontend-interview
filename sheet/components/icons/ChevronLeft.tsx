@@ -18,7 +18,7 @@ export default function ChevronLeft({
       fill="none"
       viewBox="0 0 24 24"
       strokeWidth={strokeWidth}
-      className={`cursor-pointer stroke-gray-400 ${className}`}
+      className={`${className} cursor-pointer`}
       onClick={onClick}
     >
       <path d="M15 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />

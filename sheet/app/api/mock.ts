@@ -1,3 +1,4 @@
+import { isOnlyDigits, isValidEmail } from "@/utils";
 export type AccountData = {
   id: number;
   name: string;
@@ -8,25 +9,55 @@ export type AccountData = {
   hasPaid: boolean;
 };
 
+interface fetchParams {
+  page: number;
+  pageSize: number;
+  search: string;
+}
+interface ResponseData {
+  data: AccountData[];
+  totalCount: number;
+}
+
 export function mockFetch({
   page,
   pageSize,
-}: {
-  page: number;
-  pageSize: number;
-}): Promise<AccountData[]> {
+  search,
+}: fetchParams): Promise<ResponseData> {
   const random = Math.random();
   if (random >= 0.3) {
-    return onSuccess({ page, pageSize });
+    return onSuccess({ page, pageSize, search });
   } else {
     return onError();
   }
 }
 
-function onSuccess({ page, pageSize }: { page: number; pageSize: number }): Promise<AccountData[]> {
+const getFilterData = (search: string) => {
+  if (isOnlyDigits(search)) {
+    return mockData.filter((item) => item.id.toString().includes(search));
+  } else if (isValidEmail(search)) {
+    return mockData.filter((item) =>
+      item.mail.toLowerCase().includes(search.toLowerCase())
+    );
+  } else {
+    return mockData.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+};
+
+function onSuccess({
+  page,
+  pageSize,
+  search,
+}: fetchParams): Promise<ResponseData> {
   return new Promise((resolve) => {
+    const filterData = search ? getFilterData(search) : mockData;
     setTimeout(() => {
-      resolve(mockData.slice((page - 1) * pageSize, page * pageSize));
+      resolve({
+        data: filterData.slice((page - 1) * pageSize, page * pageSize),
+        totalCount: mockData.length,
+      });
     }, 2500);
   });
 }
@@ -99,7 +130,7 @@ export const mockData: AccountData[] = [
     mail: "grace.hsu@example.com",
     totalBalance: 8750.75,
     issueDate: 1698796800000, // 2023-11-01
-    balance: 750.75,
+    balance: -750.75,
     hasPaid: true,
   },
   {
